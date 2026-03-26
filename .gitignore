@@ -1,0 +1,10 @@
+# Ignorar variáveis de ambiente e segredos
+.env
+
+# Ignorar ficheiros de sistema do Python e do Mac
+__pycache__/
+.DS_Store
+
+# Ignorar o ambiente virtual (se estiver a usar um)
+venv/
+env/

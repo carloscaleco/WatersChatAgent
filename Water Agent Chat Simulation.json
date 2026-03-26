@@ -1,0 +1,97 @@
+{
+  "name": "Water Agent Chat Simulation",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -336,
+        -96
+      ],
+      "id": "294e3c5b-adf2-4b0e-8c45-f0d7dd06e769",
+      "name": "When chat message received",
+      "webhookId": "27966a40-05c8-49b8-8305-e1ca51241c1e"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "51a36fdc-216b-46eb-bf5c-5a46e05223e1",
+              "name": "telefone",
+              "value": "961112233",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -128,
+        -96
+      ],
+      "id": "1b3fc8c6-599b-485b-947a-af2baee01d55",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:5001/api/whatsapp",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"telefone\": \"{{ $('Edit Fields').item.json.telefone }}\",\n  \"mensagem\": \"{{ $('When chat message received').item.json.chatInput }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        80,
+        -96
+      ],
+      "id": "04864ebd-3089-44af-8401-50d32756c086",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "bcac3b31-bffc-4e7e-ab52-20c39d143e3a",
+  "meta": {
+    "instanceId": "421678278a6d6ea069e15861575d8607aca4d940ad629c47a2e6643cc2a07d7c"
+  },
+  "id": "rZ1PGO9Ip60xTK3g",
+  "tags": []
+}
