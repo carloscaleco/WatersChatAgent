@@ -8,3 +8,6 @@ __pycache__/
 # Ignorar o ambiente virtual (se estiver a usar um)
 venv/
 env/
+
+# ignorar o prod py
+crewAI_prod.py

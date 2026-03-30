@@ -1,6 +1,8 @@
-# 💧 Agente Inteligente de Logística e Faturação
+# 💧 Agente inteligente de criação de encomendas para empresas de água 💧
 
 Este projeto é um MVP de um assistente de WhatsApp alimentado por IA, desenvolvido com **CrewAI** e **Python**. 
+
+O objectivo deste projeto é criar um assistente virtual, via whatsapp, que possa criar encomendas automaticamente no ERP, com base nas mensagens recebidas dos clientes. O sistema vai validar se o cliente existe (ou se o encontra), se tem dividas, e quando poderá fazer a entrega da encomenda. Deve ser um assistente cordial, educado e eficiente.
 
 ## 🏗️ Arquitetura
 - **n8n:** Gestão de Webhooks e integração com WhatsApp/Telegram.
@@ -15,7 +17,6 @@ Este projeto é um MVP de um assistente de WhatsApp alimentado por IA, desenvolv
 - Memória de sessão para contexto de conversação natural.
 
 ## 🔐 Configuração de Segurança (.env)
-
 Para que o código da API (`crewAI.py`) funcione corretamente na sua máquina, precisa de configurar as variáveis de ambiente que ligam o CrewAI ao modelo local do Ollama.
 
 1. Na raiz do projeto, crie um ficheiro chamado `.env`.
@@ -28,7 +29,6 @@ OPENAI_MODEL_NAME="qwen2.5:14b"
 ```
 
 ## 🚀 Como Testar Localmente (Modo Simulador CLI)
-
 Para facilitar a avaliação da lógica dos Agentes de Inteligência Artificial sem necessidade de configurar webhooks ou o n8n, criei um **Simulador de Terminal CLI** *Plug and Play*.
 
 ### Pré-requisitos:
