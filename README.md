@@ -4,6 +4,18 @@ Este projeto é um MVP de um assistente de WhatsApp alimentado por IA, desenvolv
 
 O objectivo deste projeto é criar um assistente virtual, via whatsapp, que possa criar encomendas automaticamente no ERP, com base nas mensagens recebidas dos clientes. O sistema vai validar se o cliente existe (ou se o encontra), se tem dividas, e quando poderá fazer a entrega da encomenda. Deve ser um assistente cordial, educado e eficiente.
 
+## 🎬 Vídeo de Apresentação
+
+Veja o vídeo abaixo para entender o propósito do projeto, conhecer a arquitetura por trás dos Agentes de IA e ver uma demonstração passo a passo de como configurar e testar o sistema.
+
+<video src="./presentation_1080p.mp4" controls="controls" style="max-width: 100%;">
+  O seu navegador não suporta a visualização de vídeo. Pode <a href="./presentation_1080p.mp4">descarregar o vídeo aqui</a>.
+</video>
+
+*(Nota: O ficheiro `presentation_1080p.mp4` encontra-se na raiz deste repositório).*
+
+---
+
 ## 🏗️ Arquitetura
 - **n8n:** Gestão de Webhooks e integração com WhatsApp/Telegram.
 - **Ollama (Qwen 2.5 14B):** Processamento de Linguagem Natural a correr localmente para garantir 100% de privacidade dos dados.
@@ -69,12 +81,12 @@ python3 crewAI.py
 ### Passo 2: Importar e Testar os Workflows no n8n
 Na sua instância local do n8n, crie um workflow vazio, clique em **Import from File** e escolha uma das seguintes opções incluídas neste repositório:
 
-#### Opção A: Chat Nativo do n8n (`Water Agent Chat Simulation.json`)
+#### Opção A: Chat Nativo do n8n (`Water_Agent_Chat_Simulation.json`)
 Ideal para testar rapidamente sem configurar aplicações externas.
 - **Cenário Simulado:** Está pré-configurado com o número `961112233` (João Silva - Cliente com Dívida). 
 - **Como testar:** Clique em "Test Workflow" e use a janela de chat do n8n para falar com o bot e testar o bloqueio financeiro.
 
-#### Opção B: Integração com Telegram (`Water Agent Telegram.json`)
+#### Opção B: Integração com Telegram (`Water_Agent_Telegram.json`)
 Ideal para ver a IA a funcionar numa aplicação de mensagens real. Como o Telegram exige um URL público para enviar dados, é necessário expor o n8n à internet.
 - **Cenário Simulado:** Está pré-configurado com o número `912345678` (Clínica Dentária - Cliente Aprovado).
 - **Como testar:** 1. Num novo terminal, inicie o ngrok para expor a porta do n8n (por norma a 5678):
