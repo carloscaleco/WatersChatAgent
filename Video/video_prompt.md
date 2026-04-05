@@ -1,109 +1,114 @@
-# 🎬 Guião de Vídeo: Agente Inteligente para Empresas de Água
+Transform my README file into an engaging, interactive video script optimized for HeyGen's PDF to video feature. Please:Content StructureConvert technical documentation into conversational, spoken language
+Break down complex concepts into digestible 30-60 second segments
+Create natural transitions between sections
+Add engaging hooks and summaries for each major section
+Video-Specific FormattingWrite in first or second person ("I'll show you..." or "You can...")
+Include natural pauses with [PAUSE] markers for emphasis
+Add visual cues like [SHOW SCREEN] or [HIGHLIGHT CODE] where relevant
+Create engaging openings and closings for each section
+Use conversational tone - avoid overly technical jargon
+Interactive ElementsAdd call-to-action moments where viewers should pause and try something
+Include questions to keep viewers engaged ("Have you ever wondered...")
+Create checkpoint summaries ("So far we've covered...")
+Add "what's next" teasers between sections
+Technical RequirementsOptimize for 2-3 minute segments maximum per section
+Include timestamps for major topics
+Add speaker notes in brackets for emphasis, tone, or pacing
+Format code examples for verbal explanation rather than reading
+Create visual break points where slides or graphics would be helpful
+Tone GuidelinesEnthusiastic but professional
+Clear and accessible to both beginners and experienced users
+Action-oriented with clear next steps
+Personal and relatable while maintaining authority
+Please maintain the core information and structure of my README while making it video-ready and engaging for a spoken presentation format.
+---
+My README content:
+# 💧 Agente inteligente de criação de encomendas para empresas de água 💧
 
-## ⏱️ Segmento 1: Introdução e O Problema (0:00 - 1:00)
+Este projeto é um MVP de um assistente de WhatsApp alimentado por IA, desenvolvido com **CrewAI** e **Python**. 
 
-**[VISUAL: Diapositivo de título vibrante com o logótipo do projeto. Título: "Revolucione as Encomendas de Água com IA"]**
-**(Tone: Entusiástico e questionador)**
+O objectivo deste projeto é criar um assistente virtual, via whatsapp, que possa criar encomendas automaticamente no ERP, com base nas mensagens recebidas dos clientes. O sistema vai validar se o cliente existe (ou se o encontra), se tem dividas, e quando poderá fazer a entrega da encomenda. Deve ser um assistente cordial, educado e eficiente.
 
-**Orador:**
-Já alguma vez parou para pensar em quantas horas as empresas de distribuição de água perdem a processar encomendas manualmente através do WhatsApp? [PAUSE] E se pudéssemos automatizar tudo isso, mantendo um atendimento ao cliente impecável?
+## 🏗️ Arquitetura
+- **n8n:** Gestão de Webhooks e integração com WhatsApp/Telegram.
+- **Ollama (Qwen 2.5 14B):** Processamento de Linguagem Natural a correr localmente para garantir 100% de privacidade dos dados.
+- **CrewAI:** Orquestração de 4 Agentes Especializados (Atendimento, Financeiro, Logística e Comunicação).
+- **Python (Flask):** Criação da API REST e gestão do Roteamento Condicional (Multi-Tier Logic) para proteção de regras de negócio estritas.
 
-**[SHOW SCREEN: Animação de um telemóvel a receber mensagens no WhatsApp e a processar encomendas automaticamente]**
+## ✨ Funcionalidades
+- Triagem em tempo real com base no número de telefone.
+- Consulta de ERP simulado (Tools).
+- Bloqueio automático de encomendas para clientes com dívidas > 30 dias.
+- Memória de sessão para contexto de conversação natural.
 
-**Orador:**
-Olá! Hoje vou mostrar-vos um assistente virtual incrível, alimentado por Inteligência Artificial, desenhado especificamente para criar encomendas automaticamente no vosso ERP. 
+## 🔐 Configuração de Segurança (.env)
+Para que o código da API (`crewAI.py`) funcione corretamente na sua máquina, precisa de configurar as variáveis de ambiente que ligam o CrewAI ao modelo local do Ollama.
 
-**[VISUAL: Aparecem bullet points dinâmicos: "Valida Cliente", "Verifica Dívidas", "Agenda Entregas"]**
+1. Na raiz do projeto, crie um ficheiro chamado `.env`.
+2. Abra o ficheiro e adicione as seguintes credenciais:
 
-**Orador:**
-Sempre que um cliente envia uma mensagem, este sistema entra em ação. Ele valida se o cliente existe, verifica imediatamente se há dívidas pendentes e cruza dados para saber quando a entrega pode ser feita. Tudo isto com um tom cordial, educado e altamente eficiente. 
+```env
+OPENAI_API_BASE="http://localhost:11434/v1"
+OPENAI_API_KEY="ollama"
+OPENAI_MODEL_NAME="qwen2.5:14b"
+```
 
-**[VISUAL: Ecrã divide-se. De um lado "Problema (Manual)", do outro "Solução (Agente IA)"]**
-**(Tone: Direto e orientador)**
+## 🚀 Como Testar Localmente (Modo Simulador CLI)
+Para facilitar a avaliação da lógica dos Agentes de Inteligência Artificial sem necessidade de configurar webhooks ou o n8n, criei um **Simulador de Terminal CLI** *Plug and Play*.
 
-**Orador:**
-Pense no seu processo atual por um segundo. [PAUSE] Está pronto para o otimizar? Vamos mergulhar na arquitetura e descobrir como a magia acontece.
+### Pré-requisitos:
+1. Ter o Ollama instalado e a correr o modelo local (`qwen2.5:14b`).
+2. Ter o Python 3 instalado na sua máquina.
+
+### Instalação:
+Antes de correr o código pela primeira vez, instale as dependências necessárias através do terminal:
+```bash
+pip install -r requirements.txt
+```
+
+### Passo a Passo para Testar:
+1. Abra o terminal na pasta do projeto.
+2. Execute o simulador:
+   ```bash
+   python3 simulador_terminal.py
+   ```
+3. O terminal irá pedir para inserir um número de telefone simulado. Pode usar:
+   - `912345678` (Clínica Sorriso - Cliente sem dívidas, testa o fluxo de Logística e agendamento).
+   - `961112233` (João Silva - Cliente com dívida, testa o bloqueio Financeiro e cálculos de datas-limite).
+   - Qualquer outro número (Testa o fluxo de Desconhecidos/Triagem).
+4. Converse naturalmente com a IA e observe o raciocínio dos agentes impresso em tempo real no ecrã! Digite `sair` para terminar a sessão.
 
 ---
 
-## ⏱️ Segmento 2: A Arquitetura e os "Cérebros" da Operação (1:00 - 2:00)
+## 🌐 Como Testar em Modo Produção (n8n + Telegram + Flask)
 
-**[SHOW SCREEN: Diagrama de arquitetura simplificado e moderno (n8n, Ollama, CrewAI, Flask)]**
-**(Tone: Profissional, simplificando conceitos técnicos)**
+Se desejar testar a arquitetura completa com a integração visual, o projeto inclui dois workflows pré-configurados do n8n.
 
-**Orador:**
-Então, como é que isto funciona nos bastidores? Construímos uma arquitetura robusta e, acima de tudo, segura. 
+### Passo 1: Levantar o Servidor de Inteligência Artificial (Flask)
+No terminal, certifique-se de que tem o `.env` configurado e inicie a API:
+```bash
+python3 crewAI.py
+```
+*(A API ficará à escuta na porta 5001).*
 
-Para começar, usamos o **Ollama** a correr o modelo *Qwen 2.5*. Porquê localmente? Porque garante 100% de privacidade dos dados dos vossos clientes. Nenhuma informação sensível vai para a cloud pública. [PAUSE] 
+### Passo 2: Importar e Testar os Workflows no n8n
+Na sua instância local do n8n, crie um workflow vazio, clique em **Import from File** e escolha uma das seguintes opções incluídas neste repositório:
 
-No coração do sistema, temos o **CrewAI**. Em vez de usar apenas um bot genérico, criámos uma equipa de *quatro* agentes especializados: um para o Atendimento, um Financeiro, um de Logística e um de Comunicação. 
+#### Opção A: Chat Nativo do n8n (`Water Agent Chat Simulation.json`)
+Ideal para testar rapidamente sem configurar aplicações externas.
+- **Cenário Simulado:** Está pré-configurado com o número `961112233` (João Silva - Cliente com Dívida). 
+- **Como testar:** Clique em "Test Workflow" e use a janela de chat do n8n para falar com o bot e testar o bloqueio financeiro.
 
-**[HIGHLIGHT AREA: Focar na parte do n8n e Flask no diagrama]**
+#### Opção B: Integração com Telegram (`Water Agent Telegram.json`)
+Ideal para ver a IA a funcionar numa aplicação de mensagens real. Como o Telegram exige um URL público para enviar dados, é necessário expor o n8n à internet.
+- **Cenário Simulado:** Está pré-configurado com o número `912345678` (Clínica Dentária - Cliente Aprovado).
+- **Como testar:** 1. Num novo terminal, inicie o ngrok para expor a porta do n8n (por norma a 5678):
+     ```bash
+     ngrok http 5678
+     ```
+  2. Aceda ao n8n através do **link HTTPS** gerado pelo ngrok (isto garante que o nó do Telegram regista o Webhook com o URL público correto).
+  3. Adicione as suas credenciais de Bot do Telegram no nó "Telegram Trigger" e no nó final "Send a text message".
+  4. Ative o workflow ou clique em "Test Workflow".
+  5. Vá ao seu telemóvel, abra o seu bot no Telegram e envie: *"Preciso de 3 garrafões"*.
 
-**Orador:**
-Para colar tudo isto, usamos **Python com Flask** para gerir as nossas regras de negócio estritas — como o bloqueio automático de encomendas para clientes com faturas em atraso há mais de 30 dias. E finalmente, o **n8n** trata da ligação direta ao WhatsApp ou Telegram.
-
-**[VISUAL: Texto no ecrã - "Resumo: Privacidade Local + 4 Agentes + Regras Estritas"]**
-
-**Orador:**
-Até agora vimos o que o sistema faz e a tecnologia que o suporta. Já a seguir, vou mostrar como podem testar isto na vossa própria máquina! Preparados?
-
----
-
-## ⏱️ Segmento 3: Configuração e o Simulador CLI (2:00 - 3:00)
-
-**[SHOW SCREEN: Ficheiro `.env` borrado que se torna nítido]**
-**(Tone: Prático e focado na ação)**
-
-**Orador:**
-Para pôr a mão na massa, o primeiro passo é a segurança. 
-
-**[HIGHLIGHT CODE: Destacar a estrutura do `.env` sem ler o código]**
-
-**Orador:**
-Na raiz do vosso projeto, vão criar um ficheiro ponto env (`.env`). Lá dentro, só precisam de colocar três linhas de configuração. Em vez de apontarmos para serviços externos pagos, estas linhas dizem ao CrewAI para usar o nosso modelo local, gratuito e seguro. 
-
-**[VISUAL: Ícone de "Pausa" a piscar no ecrã]**
-**(Tone: Encorajador)**
-
-**Orador:**
-Este é um ótimo momento para pausar o vídeo. Vão lá, criem o ficheiro `.env` e instalem as dependências no terminal. Eu espero. [PAUSE]
-
-**[SHOW SCREEN: Terminal a correr o `simulador_terminal.py`]**
-
-**Orador:**
-Tudo pronto? Fantástico. Criei um Simulador de Terminal *Plug and Play* para testarmos a IA sem termos de configurar integrações complexas. Basta executar o script do simulador. 
-
-Quando ele pedir um número de telefone, tentem o `961112233`. Este é o nosso cliente de teste, o João Silva. [PAUSE] Ele tem uma dívida pendente. Experimentem conversar com a IA e vejam, em tempo real no ecrã, como o Agente Financeiro atua e bloqueia a encomenda. É fascinante ver a IA a "pensar"!
-
----
-
-## ⏱️ Segmento 4: Entrada em Produção com Telegram e n8n (3:00 - 4:00)
-
-**[VISUAL: Ecrã completo do workflow do n8n com nós conectados]**
-**(Tone: Entusiástico, a construir para o clímax)**
-
-**Orador:**
-Testar no terminal é ótimo, mas ver isto a funcionar numa aplicação de mensagens real? Isso é outro nível. 
-
-Para testar o modo de produção, incluí dois workflows pré-configurados para o **n8n**. Primeiro, iniciamos o nosso servidor Python. Depois, importamos o workflow.
-
-**[HIGHLIGHT AREA: Mostrar as duas opções: "Chat Nativo n8n" e "Telegram"]**
-
-**Orador:**
-Têm duas opções: a Opção A permite testar diretamente no chat de teste do n8n. Mas se quiserem a experiência completa, escolham a Opção B, a integração com o Telegram! 
-
-**[SHOW SCREEN: Telemóvel com o Telegram aberto a enviar "Preciso de 3 garrafões"]**
-
-**Orador:**
-Para o Telegram, só precisam de usar o *ngrok* para criar um link público, colocar as vossas credenciais e pronto. Podem pegar no telemóvel, enviar "Preciso de 3 garrafões" e ver toda a orquestração acontecer em segundos.
-
-**[VISUAL: Ecrã de fecho com os próximos passos em lista]**
-**(Tone: Confiante e acolhedor)**
-
-**Orador:**
-E aí o têm! Um sistema inteligente, rápido e seguro para gerir encomendas. 
-
-Lembrem-se, podem alterar os números de telefone de teste a qualquer momento no n8n para explorar como os Agentes reagem a diferentes cenários. 
-
-Experimentem o simulador hoje mesmo e explorem o código. Se tiverem dúvidas, deixem um comentário ou abram uma issue no repositório. Obrigado por assistirem e boas automações!
+*(Nota: Pode alterar os números de telefone simulados a qualquer momento no nó "Edit Fields" de qualquer um dos workflows para explorar as diferentes rotas de decisão dos Agentes).*
