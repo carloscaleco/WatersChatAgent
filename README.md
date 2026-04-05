@@ -6,13 +6,11 @@ O objectivo deste projeto é criar um assistente virtual, via whatsapp, que poss
 
 ## 🎬 Vídeo de Apresentação
 
-Veja o vídeo abaixo para entender o propósito do projeto, conhecer a arquitetura por trás dos Agentes de IA e ver uma demonstração passo a passo de como configurar e testar o sistema.
+Veja o vídeo para entender o propósito do projeto, conhecer a arquitetura por trás dos Agentes de IA e ver uma demonstração passo a passo de como configurar e testar o sistema.
 
-<video src="./presentation_1080p.mp4" controls="controls" style="max-width: 100%;">
-  O seu navegador não suporta a visualização de vídeo. Pode <a href="./presentation_1080p.mp4">descarregar o vídeo aqui</a>.
-</video>
+▶️ **[Clique aqui para assistir ao Vídeo de Apresentação do Projeto](./presentation_1080p.mp4)**
 
-*(Nota: O ficheiro `presentation_1080p.mp4` encontra-se na raiz deste repositório).*
+*(Nota: O ficheiro encontra-se na raiz deste repositório. Ao clicar, o GitHub abrirá o leitor de vídeo nativo).*
 
 ---
 
